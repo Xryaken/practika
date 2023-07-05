@@ -1,3 +1,4 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -31,25 +32,39 @@ void shellSort(int array[], int n) {
 }
 
 int main() {
+    FILE* f;  
+    int size;
+    int* array;
     srand(time(NULL));
     setlocale(LC_ALL, "Rus");
-    // Генерируем рандомные значения
-    int array[10000];
-    printf("Исходный массив:\n");
-    for (int i = 0; i < 10000; i++) {
-        array[i] = rand() % 10000;
-        printf("%d ", array[i]);
-    }
+
+    scanf("%d", &size);   	 	
     printf("\n");
+
+    array = (int*)malloc(size * sizeof(int));
+
+    f = fopen("input.txt", "w");
+    
+    // Генерируем рандомные значения
+    for (int i = 0; i < size; i++)
+    {
+        array[i] = rand();
+        fprintf(f, "%d  ", array[i]);
+    }
+    fclose(f);
+
+
+    f = fopen("output.txt", "w");
 
     // Сортируем массив с помощью сортировки Shell
-    shellSort(array, 10000);
+    shellSort(array, size);
 
-    printf("Отсортированный массив:\n");
-    for (int i = 0; i < 10000; i++) {
-        printf("%d ", array[i]);
+    for (int i = 0; i < size; i++) {
+        fprintf(f, "%d  ", array[i]);
     }
-    printf("\n");
+    fclose(f);
 
     return 0;
 }
+
+   	 	
