@@ -32,19 +32,21 @@ void shellSort(int array[], int n) {
 }
 
 int main() {
-    FILE* f;  
+    FILE* f;
     int size;
     int* array;
     srand(time(NULL));
     setlocale(LC_ALL, "Rus");
 
-    scanf("%d", &size);   	 	
+    printf("Введите количество элементов массива: ");
+    scanf("%d", &size);
     printf("\n");
 
-    array = (int*)malloc(size * sizeof(int));
+    array = (int*)malloc(size*sizeof(int));
 
+    printf("Массив случайных чисел: 'input.txt'\n");
     f = fopen("input.txt", "w");
-    
+
     // Генерируем рандомные значения
     for (int i = 0; i < size; i++)
     {
@@ -54,15 +56,22 @@ int main() {
     fclose(f);
 
 
+    printf("Отсортированный массив: 'output.txt'\n");
     f = fopen("output.txt", "w");
+
+    time_t start = clock();
 
     // Сортируем массив с помощью сортировки Shell
     shellSort(array, size);
 
+    time_t stop = clock();             //время после сортировки 
     for (int i = 0; i < size; i++) {
         fprintf(f, "%d  ", array[i]);
     }
     fclose(f);
+    double time = (stop - start) / 1000.0;    //время сортировки
+    printf("\n");
+    printf("Время выполнения сортировки: %lf\n", time);
 
     return 0;
 }
